@@ -3,10 +3,15 @@ import { StatusBar } from 'expo-status-bar'
 
 import Main from './app/screens/Main'
 
+import { ThemeContextProvider } from './app/hooks/ThemeContext'
+
 const App = () => (
   <>
     <StatusBar style="auto" />
-    <Main />
+
+    <ThemeContextProvider>
+      <Main />
+    </ThemeContextProvider>
   </>
 )
 
