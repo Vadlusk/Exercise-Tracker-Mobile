@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 
-import Main from './app/screens/Main'
+import AppNavigator from './app/navigators'
 
 import { ThemeContextProvider } from './app/hooks/ThemeContext'
 
@@ -10,7 +10,7 @@ const App = () => (
     <StatusBar style="auto" />
 
     <ThemeContextProvider>
-      <Main />
+      <AppNavigator />
     </ThemeContextProvider>
   </>
 )
