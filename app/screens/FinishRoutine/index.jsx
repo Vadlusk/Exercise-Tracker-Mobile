@@ -1,21 +1,21 @@
 import React from 'react'
-import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Text, Button } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Main = () => {
+const FinishRoutine = () => {
   const navigation = useNavigation()
 
   return (
     <SafeAreaView>
-      <Text>Select a routine</Text>
+      <Text>Congrats</Text>
 
-      <View>
-        <Button onPress={() => { navigation.navigate('RoutineStack') }}>Chest</Button>
-      </View>
+      <Text>cute animation</Text>
+      <Text>Total time elapsed: </Text>
+
+      <Button onPress={() => { navigation.navigate('Main') }}>Back to main screen</Button>
     </SafeAreaView>
   )
 }
 
-export default Main
+export default FinishRoutine
