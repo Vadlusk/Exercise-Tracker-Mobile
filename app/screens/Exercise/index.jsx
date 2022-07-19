@@ -8,7 +8,9 @@ import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 const Exercise = () => {
   const navigation = useNavigation()
 
-  const { currentExercise: { name, sets, reps, time }, currentSet } = useCurrentRoutineContext()
+  const { currentExercise: { name, sets, reps, time }, currentSet, isLastSet, isLastExercise } = useCurrentRoutineContext()
+
+  const nextScreen = isLastSet && isLastExercise ? 'FinishRoutine' : 'Rest'
 
   return (
     <SafeAreaView>
@@ -21,7 +23,7 @@ const Exercise = () => {
       {reps && <Text>{reps} reps</Text>}
       {time && <Text>{time}</Text>}
 
-      <Button onPress={() => { navigation.navigate('Rest') }}>Done</Button>
+      <Button onPress={() => { navigation.navigate(nextScreen) }}>Done</Button>
     </SafeAreaView>
   )
 }
