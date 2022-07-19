@@ -3,12 +3,16 @@ import { useNavigation } from '@react-navigation/native'
 import { Text, Button } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const REST_TIME = 5
+import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
+
+const REST_TIME = 90
 
 const Rest = () => {
   const navigation = useNavigation()
 
   const [timeElapsed, setTimeElapsed] = useState(0)
+
+  const { isLastSet, isLastExercise, setNextSetOrSetAndExercise } = useCurrentRoutineContext()
 
   let timer
 
@@ -22,10 +26,21 @@ const Rest = () => {
     }
   }, [])
 
+  const navigate = () => {
+    if (isLastExercise && isLastSet) {
+      navigation.navigate('FinishRoutine')
+    } else {
+      setNextSetOrSetAndExercise()
+
+      navigation.navigate('Exercise')
+    }
+  }
+
   useEffect(() => {
     if (timeElapsed === REST_TIME) {
       clearInterval(timer)
-      navigation.navigate('FinishRoutine')
+
+      navigate()
     }
   }, [timeElapsed])
 
@@ -35,7 +50,7 @@ const Rest = () => {
 
       <Text>{REST_TIME - timeElapsed}</Text>
 
-      <Button onPress={() => { navigation.navigate('FinishRoutine') }}>Skip</Button>
+      <Button onPress={navigate}>Skip</Button>
     </SafeAreaView>
   )
 }
