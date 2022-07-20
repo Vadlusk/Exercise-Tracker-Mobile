@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
+import { Appearance } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import PropTypes from 'prop-types'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -30,7 +31,8 @@ const darkPaperTheme = {
 }
 
 export const ThemeContextProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  const isSystemDark = Appearance.getColorScheme() === 'dark'
+  const [isDarkMode, setIsDarkMode] = useState(isSystemDark)
 
   const evaluatedPaperTheme = isDarkMode ? darkPaperTheme : defaultPaperTheme
   const evaluatedNavigationTheme = isDarkMode ? DarkNavigationTheme : DefaultNavigationTheme
@@ -41,9 +43,9 @@ export const ThemeContextProvider = ({ children }) => {
   useEffect(() => {
     const getDarkModeFromAsyncStorage = async () => {
       try {
-        const value = await AsyncStorage.getItem('@darkMode')
+        const value = await AsyncStorage.getItem('@colorScheme')
 
-        if (value === 'true' || value === 'false') {
+        if (value === 'dark' || value === 'light') {
           setIsDarkMode(JSON.parse(value))
         }
       } catch (e) {
@@ -57,7 +59,7 @@ export const ThemeContextProvider = ({ children }) => {
   useEffect(() => {
     const setDarkModeInAsyncStorage = async () => {
       try {
-        await AsyncStorage.setItem('@darkMode', `${isDarkMode}`)
+        await AsyncStorage.setItem('@colorScheme', `${isDarkMode ? 'dark' : 'light'}`)
       } catch (e) {
         console.log(e)
       }
