@@ -1,8 +1,8 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, Button } from 'react-native-paper'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Title, Text, Caption, Button } from 'react-native-paper'
 
+import Screen from '../../components/Screen'
 import TotalTimeElapsedHeader from '../../components/TotalTimeElapsedHeader'
 
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
@@ -22,20 +22,33 @@ const Exercise = () => {
   }
 
   return (
-    <SafeAreaView>
+    <Screen>
       <TotalTimeElapsedHeader />
 
-      <Text>{name}</Text>
+      <Title>{name}</Title>
 
       {sets > 1 && (
-        <Text>set {currentSet} / {sets}</Text>
+        <>
+          <Caption>set</Caption>
+          <Text>{currentSet} / {sets}</Text>
+        </>
       )}
 
-      {reps && <Text>{reps} reps</Text>}
-      {time && <Text>{time}</Text>}
+      {reps && (
+        <>
+          <Caption>reps</Caption>
+          <Text>{reps}</Text>
+        </>
+      )}
+      {time && (
+        <>
+          <Caption>time</Caption>
+          <Text>{time}</Text>
+        </>
+      )}
 
       <Button onPress={onPress}>Done</Button>
-    </SafeAreaView>
+    </Screen>
   )
 }
 

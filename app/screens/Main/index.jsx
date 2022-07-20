@@ -1,8 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Text, Button } from 'react-native-paper'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Title, Button } from 'react-native-paper'
+
+import Screen from '../../components/Screen'
 
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
@@ -12,8 +13,8 @@ const Main = () => {
   const { setCurrentRoutine } = useCurrentRoutineContext()
 
   return (
-    <SafeAreaView>
-      <Text>Select a routine</Text>
+    <Screen>
+      <Title>Select a routine</Title>
 
       <View>
       {['chest', 'legs', 'shoulders', 'back'].map((title) => (
@@ -28,7 +29,7 @@ const Main = () => {
         </Button>
       ))}
       </View>
-    </SafeAreaView>
+    </Screen>
   )
 }
 

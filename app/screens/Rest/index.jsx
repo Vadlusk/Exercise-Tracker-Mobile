@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, Button } from 'react-native-paper'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Title, Button } from 'react-native-paper'
+
+import Screen from '../../components/Screen'
 
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
@@ -45,13 +46,13 @@ const Rest = () => {
   }, [timeElapsed])
 
   return (
-    <SafeAreaView>
-      <Text>rest for 90 seconds</Text>
+    <Screen>
+      <Title>rest for 90 seconds</Title>
 
-      <Text>{REST_TIME - timeElapsed}</Text>
+      <Title>{REST_TIME - timeElapsed}</Title>
 
       <Button onPress={navigate}>Skip</Button>
-    </SafeAreaView>
+    </Screen>
   )
 }
 
