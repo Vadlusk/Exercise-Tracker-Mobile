@@ -3,12 +3,14 @@ import { useNavigation } from '@react-navigation/native'
 import { Text, Button } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import TimeDisplay from '../../components/TimeDisplay'
+
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
 const FinishRoutine = () => {
   const navigation = useNavigation()
 
-  const { resetCurrentRoutine } = useCurrentRoutineContext()
+  const { resetCurrentRoutine, totalTimeElapsed } = useCurrentRoutineContext()
 
   return (
     <SafeAreaView>
@@ -16,6 +18,7 @@ const FinishRoutine = () => {
 
       <Text>cute animation</Text>
       <Text>Total time elapsed: </Text>
+      <TimeDisplay timeInSeconds={totalTimeElapsed} />
 
       <Button onPress={() => {
         resetCurrentRoutine()

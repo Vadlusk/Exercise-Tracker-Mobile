@@ -8,7 +8,7 @@ import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 const StartRoutine = () => {
   const navigation = useNavigation()
 
-  const { currentRoutine } = useCurrentRoutineContext()
+  const { currentRoutine, startTotalTimeElapsed } = useCurrentRoutineContext()
 
   return (
     <SafeAreaView>
@@ -19,7 +19,7 @@ const StartRoutine = () => {
         <Text key={exercise.name}>{exercise.name} sets: {exercise.sets} reps: {exercise.reps}</Text>
       ))}
 
-      <Button onPress={() => { navigation.navigate('Exercise') }}>Begin</Button>
+      <Button onPress={() => { startTotalTimeElapsed(); navigation.navigate('Exercise') }}>Begin</Button>
     </SafeAreaView>
   )
 }

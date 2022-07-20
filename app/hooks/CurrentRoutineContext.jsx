@@ -42,9 +42,21 @@ export const CurrentRoutineContextProvider = ({ children }) => {
   const [currentRoutine, setCurrentRoutineInState] = useState(null)
   const [currentExercise, setCurrentExercise] = useState(null)
   const [currentSet, setCurrentSet] = useState(1)
+  const [totalTimeElapsed, setTotalTimeElapsed] = useState(0)
+  const [totalTimeElapsedTimer, setTotalTimeElapsedTimer] = useState(null)
 
   const isLastSet = useMemo(() => currentSet === currentExercise?.sets, [currentSet, currentExercise])
   const isLastExercise = useMemo(() => currentExercise?.name === currentRoutine?.exercises[currentRoutine?.exercises.length - 1].name, [currentExercise, currentRoutine])
+
+  const startTotalTimeElapsed = () => {
+    setTotalTimeElapsedTimer(setInterval(() => {
+      setTotalTimeElapsed(prevTime => prevTime + 1)
+    }, 1000))
+  }
+
+  const stopTotalTimeElapsed = () => {
+    clearInterval(totalTimeElapsedTimer)
+  }
 
   const setCurrentRoutine = (title) => {
     const newRoutine = ROUTINE_TEMPLATES.find(routine => routine.title === title)
@@ -69,6 +81,8 @@ export const CurrentRoutineContextProvider = ({ children }) => {
     setCurrentRoutineInState(null)
     setCurrentExercise(null)
     setCurrentSet(1)
+    setTotalTimeElapsed(0)
+    setTotalTimeElapsedTimer(null)
   }
 
   return (
@@ -78,6 +92,10 @@ export const CurrentRoutineContextProvider = ({ children }) => {
 
       currentExercise,
       currentSet,
+
+      totalTimeElapsed,
+      startTotalTimeElapsed,
+      stopTotalTimeElapsed,
 
       isLastSet,
       isLastExercise,
