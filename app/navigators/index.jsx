@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CurrentRoutineContextProvider } from '../hooks/CurrentRoutineContext'
 
 import Exercise from '../screens/Exercise'
-import Main from '../screens/Main'
+import SelectRoutine from '../screens/SelectRoutine'
 import Rest from '../screens/Rest'
 import StartRoutine from '../screens/StartRoutine'
 import FinishRoutine from '../screens/FinishRoutine'
@@ -22,9 +22,9 @@ const RoutineStack = () => (
 
 const AppNavigator = () => (
   <CurrentRoutineContextProvider>
-    <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="RoutineStack" component={RoutineStack} />
-        <Stack.Screen name="Main" component={Main} />
+    <Stack.Navigator initialRouteName="SelectRoutine" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="RoutineStack" component={RoutineStack} />
+      <Stack.Screen name="SelectRoutine" component={SelectRoutine} />
     </Stack.Navigator>
   </CurrentRoutineContextProvider>
 )
