@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
 import { Appearance } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import PropTypes from 'prop-types'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -45,9 +46,7 @@ export const ThemeContextProvider = ({ children }) => {
       try {
         const value = await AsyncStorage.getItem('@colorScheme')
 
-        if (value === 'dark' || value === 'light') {
-          setIsDarkMode(JSON.parse(value))
-        }
+        setIsDarkMode(value)
       } catch (e) {
         console.log(e)
       }
@@ -71,15 +70,19 @@ export const ThemeContextProvider = ({ children }) => {
   }, [isDarkMode])
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
-      <SafeAreaProvider>
-        <PaperThemeProvider theme={paperTheme}>
-          <NavigationContainer theme={navigationTheme}>
-            {children}
-          </NavigationContainer>
-        </PaperThemeProvider>
-      </SafeAreaProvider>
-    </ThemeContext.Provider>
+    <>
+      <StatusBar style={isDarkMode ? 'light' : 'dark'} />
+
+      <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+        <SafeAreaProvider>
+          <PaperThemeProvider theme={paperTheme}>
+            <NavigationContainer theme={navigationTheme}>
+              {children}
+            </NavigationContainer>
+          </PaperThemeProvider>
+        </SafeAreaProvider>
+      </ThemeContext.Provider>
+    </>
   )
 }
 
