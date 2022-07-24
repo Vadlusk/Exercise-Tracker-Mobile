@@ -21,7 +21,7 @@ const FinishRoutine = () => {
 
       <Button onPress={() => {
         resetCurrentRoutine()
-        navigation.reset({ index: 0, routes: [{ name: 'Main' }] })
+        navigation.reset({ index: 0, routes: [{ name: 'SelectRoutine' }] })
       }}
       >
         Back to main screen
