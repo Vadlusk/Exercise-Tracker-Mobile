@@ -41,7 +41,7 @@ const ROUTINE_TEMPLATES = [
       { name: 'mountain climbers', sets: 3, reps: null, time: 60 },
       { name: 'crunches', sets: 3, reps: 20, time: null }
     ]
-  },
+  }
 ]
 
 const CurrentRoutineContext = createContext()

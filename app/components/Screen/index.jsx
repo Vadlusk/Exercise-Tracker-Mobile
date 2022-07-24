@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 15,
-    paddingBottom: 40,
+    paddingBottom: 40
   }
 })
