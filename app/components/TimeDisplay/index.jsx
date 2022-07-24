@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'react-native-paper'
 
-const TimeDisplay = ({ timeInSeconds }) => {
+const TimeDisplay = ({ timeInSeconds, ...props }) => {
   const minutes = Math.floor(timeInSeconds / 60)
   let seconds = timeInSeconds - minutes * 60
 
@@ -10,7 +10,7 @@ const TimeDisplay = ({ timeInSeconds }) => {
     seconds = `0${seconds}`
   }
 
-  return <Text>{minutes}:{seconds}</Text>
+  return <Text {...props}>{minutes}:{seconds} mins</Text>
 }
 
 TimeDisplay.propTypes = {

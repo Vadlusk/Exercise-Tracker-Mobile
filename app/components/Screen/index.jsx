@@ -19,7 +19,8 @@ export default Screen
 
 const styles = StyleSheet.create({
   screen: {
-    paddingTop: 15,
-    paddingHorizontal: 15
+    flex: 1,
+    padding: 15,
+    paddingBottom: 40,
   }
 })

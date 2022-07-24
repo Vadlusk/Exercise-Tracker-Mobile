@@ -1,8 +1,10 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Title, Caption, Text, Button } from 'react-native-paper'
+import { View } from 'react-native'
+import { Title, Caption, Subheading, Text, Button } from 'react-native-paper'
 
 import Screen from '../../components/Screen'
+import TimeDisplay from '../../components/TimeDisplay'
 
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
@@ -17,8 +19,18 @@ const StartRoutine = () => {
       <Title>{currentRoutine?.title}</Title>
 
       <Caption>Summary:</Caption>
-      {currentRoutine?.exercises.map(exercise => (
-        <Text key={exercise.name}>- {exercise.name} sets: {exercise.sets} reps: {exercise.reps}</Text>
+      {currentRoutine?.exercises.map(({ name, sets, reps, time }) => (
+        <View key={name}>
+          <Subheading>{name}</Subheading>
+          {sets > 1 && <Text>{sets} sets</Text>}
+          {reps && <Text>{reps} reps</Text>}
+          {time && (
+            <>
+              <TimeDisplay timeInSeconds={time} />
+              {sets > 1 && <Text>per set</Text>}
+            </>
+          )}
+        </View>
       ))}
 
       <Button onPress={() => { startTotalTimeElapsed(); navigation.navigate('Exercise') }}>Begin</Button>

@@ -17,7 +17,7 @@ const Main = () => {
       <Title>Select a routine</Title>
 
       <View>
-      {['chest', 'legs', 'shoulders', 'back'].map((title) => (
+      {['chest', 'legs', 'shoulders', 'back', 'abs'].map((title) => (
         <Button
           key={title}
           onPress={() => {
