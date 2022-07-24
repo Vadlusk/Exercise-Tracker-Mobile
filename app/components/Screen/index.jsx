@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet, View } from 'react-native'
 
 const Screen = ({ children }) => (
-  <SafeAreaView style={styles.screen}>
+  <View style={styles.screen}>
     {children}
-  </SafeAreaView>
+  </View>
 )
 
 Screen.propTypes = {

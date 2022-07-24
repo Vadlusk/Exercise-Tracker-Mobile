@@ -22,7 +22,13 @@ const RoutineStack = () => (
 
 const AppNavigator = () => (
   <CurrentRoutineContextProvider>
-    <Stack.Navigator initialRouteName="SelectRoutine" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      initialRouteName="SelectRoutine"
+      screenOptions={{
+        headerTintColor: 'white',
+        title: ''
+      }}
+    >
       <Stack.Screen name="RoutineStack" component={RoutineStack} />
       <Stack.Screen name="SelectRoutine" component={SelectRoutine} />
     </Stack.Navigator>
