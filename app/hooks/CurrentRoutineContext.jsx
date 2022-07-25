@@ -64,9 +64,13 @@ export const CurrentRoutineContextProvider = ({ children }) => {
 
   const stopTotalTimeElapsed = () => {
     clearInterval(totalTimeElapsedTimer)
+    setTotalTimeElapsedTimer(null)
   }
 
   const setCurrentRoutine = (title) => {
+    resetCurrentRoutine()
+    stopTotalTimeElapsed()
+
     const newRoutine = ROUTINE_TEMPLATES.find(routine => routine.title === title)
 
     setCurrentRoutineInState(newRoutine)
@@ -90,7 +94,6 @@ export const CurrentRoutineContextProvider = ({ children }) => {
     setCurrentExercise(null)
     setCurrentSet(1)
     setTotalTimeElapsed(0)
-    setTotalTimeElapsedTimer(null)
   }
 
   return (
