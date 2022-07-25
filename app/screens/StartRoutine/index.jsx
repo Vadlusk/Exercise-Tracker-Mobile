@@ -30,7 +30,7 @@ const StartRoutine = () => {
           description += `${reps} reps`
         }
         if (time && time <= 60) {
-          description += `${time} seconds`
+          description += `${time} seconds${sets > 1 && ' per set'}`
         }
         if (time && time > 60) {
           description += `${secondsToMinutes(time)} minutes`
