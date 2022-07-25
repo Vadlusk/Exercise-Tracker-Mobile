@@ -1,10 +1,11 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View } from 'react-native'
-import { Title, Caption, Subheading, Text, Button } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { Button, List, Title } from 'react-native-paper'
 
 import Screen from '../../components/Screen'
-import TimeDisplay from '../../components/TimeDisplay'
+
+import { secondsToMinutes } from '../../helpers'
 
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
@@ -15,27 +16,53 @@ const StartRoutine = () => {
 
   return (
     <Screen>
-      <Title>Start Exercising</Title>
-      <Title>{currentRoutine?.title}</Title>
+      <Title style={styles.title}>{currentRoutine?.title.toUpperCase()}</Title>
 
-      <Caption>Summary:</Caption>
-      {currentRoutine?.exercises.map(({ name, sets, reps, time }) => (
-        <View key={name}>
-          <Subheading>{name}</Subheading>
-          {sets > 1 && <Text>{sets} sets</Text>}
-          {reps && <Text>{reps} reps</Text>}
-          {time && (
-            <>
-              <TimeDisplay timeInSeconds={time} />
-              {sets > 1 && <Text>per set</Text>}
-            </>
-          )}
-        </View>
-      ))}
+      {currentRoutine?.exercises.map(({ name, sets, reps, time }) => {
+        let description = ''
+        if (sets > 1) {
+          description += `${sets} sets`
+        }
+        if ((reps || time) && sets > 1) {
+          description += ', '
+        }
+        if (reps) {
+          description += `${reps} reps`
+        }
+        if (time && time <= 60) {
+          description += `${time} seconds`
+        }
+        if (time && time > 60) {
+          description += `${secondsToMinutes(time)} minutes`
+        }
 
-      <Button onPress={() => { startTotalTimeElapsed(); navigation.navigate('Exercise') }}>Begin</Button>
+        return <List.Item key={name} title={name} description={description} />
+      })}
+
+      <Button
+        mode="contained"
+        style={styles.button}
+        onPress={() => {
+          startTotalTimeElapsed()
+          navigation.navigate('Exercise')
+        }}
+      >
+        Start Exercising
+      </Button>
     </Screen>
   )
 }
 
 export default StartRoutine
+
+const styles = StyleSheet.create({
+  title: {
+    alignSelf: 'center'
+  },
+  row: {
+    flexDirection: 'row'
+  },
+  button: {
+    marginTop: 'auto'
+  }
+})

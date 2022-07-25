@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Title, Button } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { Button, Subheading, Text } from 'react-native-paper'
 
 import Screen from '../../components/Screen'
 
@@ -47,13 +48,26 @@ const Rest = () => {
 
   return (
     <Screen>
-      <Title>rest for 90 seconds</Title>
+      <View style={styles.timerContainer}>
+        <Subheading>rest for 90 seconds</Subheading>
 
-      <Title>{REST_TIME - timeElapsed}</Title>
+        <Text style={styles.time}>{REST_TIME - timeElapsed}</Text>
+      </View>
 
-      <Button onPress={navigate}>Skip</Button>
+      <Button mode="contained" onPress={navigate}>Skip</Button>
     </Screen>
   )
 }
 
 export default Rest
+
+const styles = StyleSheet.create({
+  timerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  time: {
+    fontSize: 50
+  }
+})

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { StyleSheet, View } from 'react-native'
-import { Subheading, Title, Text, Caption, Button } from 'react-native-paper'
+import { Button, Subheading, Title, Text } from 'react-native-paper'
 
 import Screen from '../../components/Screen'
-import TimeDisplay from '../../components/TimeDisplay'
 import TotalTimeElapsedHeader from '../../components/TotalTimeElapsedHeader'
+
+import { secondsToMinutes } from '../../helpers'
 
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
@@ -57,30 +58,20 @@ const Exercise = () => {
     <Screen>
       {!time && <TotalTimeElapsedHeader />}
 
-      <Title>{name}</Title>
+      <Title>{name.toUpperCase()}</Title>
 
-      {sets > 1 && (
-        <>
-          <Caption>set</Caption>
-          <Text>{currentSet} / {sets}</Text>
-        </>
-      )}
+      {sets > 1 && <Subheading>set {currentSet} out of {sets}</Subheading>}
 
-      {reps && (
-        <>
-          <Caption>reps</Caption>
-          <Text>{reps}</Text>
-        </>
-      )}
+      {reps && <Subheading>{reps} reps</Subheading>}
 
       {time && (
         <View style={styles.timerContainer}>
           <Subheading>time remaining</Subheading>
-          <TimeDisplay timeInSeconds={timeRemainingForCurrentSet} style={styles.time} />
+          <Text style={styles.time}>{secondsToMinutes(timeRemainingForCurrentSet)}</Text>
         </View>
       )}
 
-      <Button onPress={clearTimersAndNavigate}>{time ? 'Skip' : 'Done'}</Button>
+      <Button style={styles.button} mode="contained" onPress={clearTimersAndNavigate}>{time ? 'Skip' : 'Done'}</Button>
     </Screen>
   )
 }
@@ -93,8 +84,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-
   time: {
     fontSize: 50
+  },
+  button: {
+    marginTop: 'auto'
   }
 })

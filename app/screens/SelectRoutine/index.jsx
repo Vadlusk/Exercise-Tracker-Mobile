@@ -20,6 +20,7 @@ const Main = () => {
       {['chest', 'legs', 'shoulders', 'back', 'abs'].map((title) => (
         <Button
           key={title}
+          mode="outlined"
           onPress={() => {
             setCurrentRoutine(title)
             navigation.navigate('RoutineStack', { screen: 'StartRoutine', params: { title } })

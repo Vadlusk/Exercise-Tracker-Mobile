@@ -1,9 +1,8 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Caption } from 'react-native-paper'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet, View } from 'react-native'
+import { Caption, Text } from 'react-native-paper'
 
-import TimeDisplay from '../TimeDisplay'
+import { secondsToMinutes } from '../../helpers'
 
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
@@ -11,10 +10,10 @@ const TotalTimeElapsedHeader = () => {
   const { totalTimeElapsed } = useCurrentRoutineContext()
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Caption>Total time elapsed: </Caption>
-      <TimeDisplay timeInSeconds={totalTimeElapsed} />
-    </SafeAreaView>
+      <Text>{secondsToMinutes(totalTimeElapsed)}</Text>
+    </View>
   )
 }
 
