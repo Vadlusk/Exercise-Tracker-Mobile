@@ -25,7 +25,6 @@ const AppNavigator = () => (
     <Stack.Navigator
       initialRouteName="SelectRoutine"
       screenOptions={{
-        headerTintColor: 'white',
         title: ''
       }}
     >

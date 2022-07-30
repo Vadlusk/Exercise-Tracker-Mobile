@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
 import { Appearance } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import PropTypes from 'prop-types'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import {
@@ -32,48 +31,29 @@ const darkPaperTheme = {
 }
 
 export const ThemeContextProvider = ({ children }) => {
-  const isSystemDark = Appearance.getColorScheme() === 'dark'
-  const [isDarkMode, setIsDarkMode] = useState(isSystemDark)
+  const systemColorScheme = Appearance.getColorScheme()
+  const [colorScheme, setColorScheme] = useState(systemColorScheme)
 
-  const evaluatedPaperTheme = isDarkMode ? darkPaperTheme : defaultPaperTheme
-  const evaluatedNavigationTheme = isDarkMode ? DarkNavigationTheme : DefaultNavigationTheme
+  const evaluatedPaperTheme = colorScheme === 'dark' ? darkPaperTheme : defaultPaperTheme
+  const evaluatedNavigationTheme = colorScheme === 'dark' ? DarkNavigationTheme : DefaultNavigationTheme
 
   const [paperTheme, setPaperTheme] = useState(evaluatedPaperTheme)
   const [navigationTheme, setNavigationTheme] = useState(evaluatedNavigationTheme)
 
   useEffect(() => {
-    const getDarkModeFromAsyncStorage = async () => {
-      try {
-        const value = await AsyncStorage.getItem('@colorScheme')
-
-        setIsDarkMode(value)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    getDarkModeFromAsyncStorage()
-  }, [])
-
-  useEffect(() => {
-    const setDarkModeInAsyncStorage = async () => {
-      try {
-        await AsyncStorage.setItem('@colorScheme', `${isDarkMode ? 'dark' : 'light'}`)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
     setPaperTheme(evaluatedPaperTheme)
     setNavigationTheme(evaluatedNavigationTheme)
-    setDarkModeInAsyncStorage()
-  }, [isDarkMode])
+  }, [colorScheme])
+
+  useEffect(() => {
+    setColorScheme(systemColorScheme)
+  }, [systemColorScheme])
 
   return (
     <>
-      <StatusBar style={isDarkMode ? 'light' : 'dark'} />
+      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
 
-      <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+      <ThemeContext.Provider value={{ colorScheme, setColorScheme }}>
         <SafeAreaProvider>
           <PaperThemeProvider theme={paperTheme}>
             <NavigationContainer theme={navigationTheme}>
