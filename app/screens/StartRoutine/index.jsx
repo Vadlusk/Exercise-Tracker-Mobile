@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Button, List, Title } from 'react-native-paper'
 
 import Screen from '../../components/Screen'
