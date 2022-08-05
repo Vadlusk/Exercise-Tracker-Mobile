@@ -23,7 +23,7 @@ const Main = () => {
           mode="outlined"
           onPress={() => {
             setCurrentRoutine(title)
-            navigation.navigate('RoutineStack', { screen: 'StartRoutine', params: { title } })
+            navigation.navigate('StartRoutine', { params: { title } })
           }}
         >
           {title.toUpperCase()}
