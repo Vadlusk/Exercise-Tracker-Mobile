@@ -5,6 +5,8 @@ import { Title, Button } from 'react-native-paper'
 
 import Screen from '../../components/Screen'
 
+import HistorySection from './HistorySection'
+
 import { useCurrentRoutineContext } from '../../hooks/CurrentRoutineContext'
 
 const Main = () => {
@@ -30,6 +32,8 @@ const Main = () => {
         </Button>
       ))}
       </View>
+
+      <HistorySection />
     </Screen>
   )
 }
